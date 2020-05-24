@@ -1,4 +1,5 @@
 import { Configuration, Units } from "./types";
+import { firebaseConfig } from "./firebaseConfig/firebaseConfig";
 
 export const configuration: Configuration = {
   units: Units.METRIC,
@@ -12,6 +13,7 @@ export const configuration: Configuration = {
     METRIC: 30,
     STANDARD: 50,
   },
-  sampleRateInMs: 1000,
-  sampleIntervalinMs: 1000 * 60 * 5,
+  sampleRateInMs: 5000,
+  saveIntervalinMs: 1000 * 60 * 15,
+  firebaseConfig: firebaseConfig,
 };

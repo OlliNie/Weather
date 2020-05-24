@@ -11,7 +11,8 @@ export interface Configuration {
     STANDARD: number;
   };
   sampleRateInMs: number;
-  sampleIntervalinMs: number;
+  saveIntervalinMs: number;
+  firebaseConfig: any;
 }
 
 export enum Units {

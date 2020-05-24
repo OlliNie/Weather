@@ -2,6 +2,7 @@ import { configuration } from "../configuration/configuration";
 import { calculateWindSpeed } from "./calculateWindSpeed";
 import { getSenesorVoltage } from "./getSensorVoltage";
 import { Units } from "../configuration/types";
+import firebase from "firebase";
 
 interface WindRecoding {
   windSpeed: number;
@@ -9,17 +10,31 @@ interface WindRecoding {
   date: string;
 }
 
+// initialise firebase
+const app = firebase.initializeApp(configuration.firebaseConfig);
+// firebase.analytics();
+const db = app.firestore();
+
+const getDay = () => {
+  const date = new Date();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}_${day}_${year}`;
+};
+
 export const recordWindSpeed = () => {
+  console.log("recording wind speed");
   const sampleRate = configuration.sampleRateInMs;
   const unit = configuration.units;
-  const recordInterval = configuration.sampleIntervalinMs;
+  const saveInterval = configuration.saveIntervalinMs;
 
   //  RecordedSamples is each sample
   let recordedSamples: any = [];
   //  Recorded wind includes min and max measurements for configured interval
   const recordedWind: any = [];
-  let sampleIntervalHandle: number;
-  let recordIntervalHandle: number;
+  let sampleIntervalHandle: any;
+  let updateCloudIntervalHandle: any;
 
   const getStrongestWindRecording = (
     acc: WindRecoding,
@@ -55,7 +70,7 @@ export const recordWindSpeed = () => {
     recordedSamples.push(windRecording(getSenesorVoltage()));
   }, sampleRate);
 
-  recordIntervalHandle = setInterval(() => {
+  updateCloudIntervalHandle = setInterval(() => {
     const strongestWind = recordedSamples.reduce(
       getStrongestWindRecording,
       undefined
@@ -70,12 +85,15 @@ export const recordWindSpeed = () => {
     };
     recordedWind.push(strongestWeakestRecoding);
     recordedSamples = [];
-    console.log("recorded Wind", recordedWind);
-  }, recordInterval);
+
+    const day = getDay();
+    console.log("day", day);
+    db.collection("windSpeeds").doc(day).set({ test: recordedWind });
+  }, saveInterval);
 
   const stopRecoding = () => {
     clearInterval(sampleIntervalHandle);
-    clearInterval(recordIntervalHandle);
+    clearInterval(updateCloudIntervalHandle);
   };
 
   return {
