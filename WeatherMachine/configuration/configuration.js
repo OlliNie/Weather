@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.configuration = void 0;
 var types_1 = require("./types");
+var firebaseConfig_1 = require("./firebaseConfig/firebaseConfig");
 exports.configuration = {
     units: types_1.Units.METRIC,
     minVoltage: 0,
@@ -14,7 +15,7 @@ exports.configuration = {
         METRIC: 30,
         STANDARD: 50,
     },
-    sampleRateInMs: 1000,
-    sampleIntervalinMs: 1000 * 60 * 0.5,
-   
+    sampleRateInMs: 5000,
+    saveIntervalinMs: 1000 * 60 * 15,
+    firebaseConfig: firebaseConfig_1.firebaseConfig,
 };
