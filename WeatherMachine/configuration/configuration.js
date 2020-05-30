@@ -15,7 +15,7 @@ exports.configuration = {
         METRIC: 30,
         STANDARD: 50,
     },
-    sampleRateInMs: 5000,
-    saveIntervalinMs: 1000 * 60 * 15,
+    sampleRateInMs: 1000 * 30,
+    saveIntervalinMs: 1000 * 60 * 2,
     firebaseConfig: firebaseConfig_1.firebaseConfig,
 };

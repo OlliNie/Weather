@@ -7,7 +7,7 @@ import firebase from "firebase";
 interface WindRecoding {
   windSpeed: number;
   unit: Units;
-  date: string;
+  time: string;
 }
 
 // initialise firebase
@@ -58,10 +58,12 @@ export const recordWindSpeed = () => {
   };
 
   const windRecording = (voltage: number) => {
+    const time = new Date();
+
     const windRecording: WindRecoding = {
       windSpeed: calculateWindSpeed(voltage),
       unit,
-      date: Date(),
+      time: `${time.getHours()}:${time.getMinutes()}`,
     };
     return windRecording;
   };
@@ -71,6 +73,7 @@ export const recordWindSpeed = () => {
   }, sampleRate);
 
   updateCloudIntervalHandle = setInterval(() => {
+    const date = new Date();
     const strongestWind = recordedSamples.reduce(
       getStrongestWindRecording,
       undefined
@@ -82,13 +85,19 @@ export const recordWindSpeed = () => {
     const strongestWeakestRecoding = {
       strongest: strongestWind,
       weakest: weakestWind,
+      recordIntervalInMs: configuration.saveIntervalinMs,
+      recordTime: `${date.getHours()}:${date.getMinutes()}`,
     };
     recordedWind.push(strongestWeakestRecoding);
     recordedSamples = [];
 
     const day = getDay();
     console.log("day", day);
-    db.collection("windSpeeds").doc(day).set({ test: recordedWind });
+    db.collection("windSpeeds")
+      .doc("recordings")
+      .set({
+        [day]: recordedWind,
+      });
   }, saveInterval);
 
   const stopRecoding = () => {

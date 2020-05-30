@@ -47,10 +47,11 @@ exports.recordWindSpeed = function () {
         }
     };
     var windRecording = function (voltage) {
+        var time = new Date();
         var windRecording = {
             windSpeed: calculateWindSpeed_1.calculateWindSpeed(voltage),
             unit: unit,
-            date: Date(),
+            time: time.getHours() + ":" + time.getMinutes(),
         };
         return windRecording;
     };
@@ -58,17 +59,25 @@ exports.recordWindSpeed = function () {
         recordedSamples.push(windRecording(getSensorVoltage_1.getSenesorVoltage()));
     }, sampleRate);
     updateCloudIntervalHandle = setInterval(function () {
+        var _a;
+        var date = new Date();
         var strongestWind = recordedSamples.reduce(getStrongestWindRecording, undefined);
         var weakestWind = recordedSamples.reduce(getWeakestWindRecording, undefined);
         var strongestWeakestRecoding = {
             strongest: strongestWind,
             weakest: weakestWind,
+            recordIntervalInMs: configuration_1.configuration.saveIntervalinMs,
+            recordTime: date.getHours() + ":" + date.getMinutes(),
         };
         recordedWind.push(strongestWeakestRecoding);
         recordedSamples = [];
         var day = getDay();
         console.log("day", day);
-        db.collection("windSpeeds").doc(day).set({ test: recordedWind });
+        db.collection("windSpeeds")
+            .doc("recordings")
+            .set((_a = {},
+            _a[day] = recordedWind,
+            _a));
     }, saveInterval);
     var stopRecoding = function () {
         clearInterval(sampleIntervalHandle);
