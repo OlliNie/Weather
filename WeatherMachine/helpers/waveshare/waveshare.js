@@ -58,6 +58,9 @@ var Port = /** @class */ (function () {
         }); };
         this.port = new serialport_1.default(port, { baudRate: 9600 });
         this.port.pipe(this.parser);
+        this.parser.on("readable", function () {
+            console.log(_this.port.read());
+        });
     }
     return Port;
 }());
