@@ -7,6 +7,9 @@ export class Port {
   constructor(port: string) {
     this.port = new SerialPort(port, { baudRate: 9600 });
     this.port.pipe(this.parser);
+    this.parser.on("readable", () => {
+      console.log(this.port.read());
+    });
   }
 
   write = async (ATcommand: string) => {
