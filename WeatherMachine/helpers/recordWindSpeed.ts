@@ -3,6 +3,8 @@ import { calculateWindSpeed } from "./calculateWindSpeed";
 import { getSenesorVoltage } from "./getSensorVoltage";
 import { Units } from "../configuration/types";
 import firebase from "firebase";
+import SerialPort from "serialport";
+const serialport = new SerialPort("/dev/ttyS0");
 
 interface WindRecoding {
   windSpeed: number;
@@ -59,7 +61,6 @@ export const recordWindSpeed = () => {
 
   const windRecording = (voltage: number) => {
     const time = new Date();
-
     const windRecording: WindRecoding = {
       windSpeed: calculateWindSpeed(voltage),
       unit,
