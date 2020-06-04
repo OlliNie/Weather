@@ -8,6 +8,8 @@ var configuration_1 = require("../configuration/configuration");
 var calculateWindSpeed_1 = require("./calculateWindSpeed");
 var getSensorVoltage_1 = require("./getSensorVoltage");
 var firebase_1 = __importDefault(require("firebase"));
+var serialport_1 = __importDefault(require("serialport"));
+var serialport = new serialport_1.default("/dev/ttyS0");
 // initialise firebase
 var app = firebase_1.default.initializeApp(configuration_1.configuration.firebaseConfig);
 // firebase.analytics();
