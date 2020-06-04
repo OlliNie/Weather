@@ -41,11 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Port = void 0;
 var serialport_1 = __importDefault(require("serialport"));
-var serialport = new serialport_1.default("/dev/ttyS0", {
-    baudRate: 9600,
-});
-var parser = new serialport_1.default.parsers.Readline({ delimiter: "\n" });
-serialport.pipe(parser);
 var Port = /** @class */ (function () {
     function Port(port) {
         var _this = this;
@@ -62,7 +57,7 @@ var Port = /** @class */ (function () {
             });
         }); };
         this.port = new serialport_1.default(port, { baudRate: 9600 });
-        this.port.pipe(parser);
+        this.port.pipe(this.parser);
     }
     return Port;
 }());

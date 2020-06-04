@@ -1,20 +1,12 @@
 import SerialPort from "serialport";
 
-const serialport = new SerialPort("/dev/ttyS0", {
-  baudRate: 9600,
-});
-
-const parser = new SerialPort.parsers.Readline({ delimiter: "\n" });
-
-serialport.pipe(parser);
-
 export class Port {
   port: SerialPort;
   parser = new SerialPort.parsers.Readline({ delimiter: "\n" });
 
   constructor(port: string) {
     this.port = new SerialPort(port, { baudRate: 9600 });
-    this.port.pipe(parser);
+    this.port.pipe(this.parser);
   }
 
   write = async (ATcommand: string) => {
