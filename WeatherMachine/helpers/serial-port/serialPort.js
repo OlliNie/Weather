@@ -41,7 +41,7 @@ var Port = /** @class */ (function () {
                 setTimeout(function () {
                     handle.removeListener;
                     rej(new Error("Command Timed Out"));
-                }, 5000);
+                }, 10000);
                 _this.port.write(dataToSend + "\u001A");
             });
         };

@@ -9,11 +9,21 @@ export class Waveshare {
 
   text = ({ number, message }: Props) =>
     new Promise(async (res, rej) => {
+      console.log(number, message);
       this.port
         .write("AT")
-        .then(() => this.port.write("AT+CMGF=1"))
-        .then(() => this.port.write(`AT+CMGW="${number}"`))
-        .then(() => this.port.send(`${message}`))
+        .then((res) => {
+          console.log(res);
+          return this.port.write("AT+CMGF=1");
+        })
+        .then((res) => {
+          console.log(res);
+          return this.port.write(`AT+CMGW="${number}"`);
+        })
+        .then((res) => {
+          console.log(res);
+          return this.port.send(`${message}`);
+        })
         .then(res)
         .catch(rej);
     });

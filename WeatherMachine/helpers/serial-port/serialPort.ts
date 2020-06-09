@@ -46,7 +46,7 @@ export class Port {
       setTimeout(() => {
         handle.removeListener;
         rej(new Error("Command Timed Out"));
-      }, 5000);
+      }, 10000);
 
       this.port.write(`${dataToSend}\x1A`);
     });
