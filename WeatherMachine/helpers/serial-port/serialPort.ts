@@ -4,9 +4,14 @@ const pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)/gi;
 
 export class Port {
   port: SerialPort;
+  parser = new SerialPort.parsers.Readline({ delimiter: "\n" });
 
   constructor(port: string) {
     this.port = new SerialPort(port, { baudRate: 9600 });
+    this.port.pipe(this.parser);
+    this.parser.on("readable", () => {
+      console.log(this.port.read());
+    });
   }
 
   write = (dataToWrite: string) =>

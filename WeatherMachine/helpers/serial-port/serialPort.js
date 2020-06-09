@@ -9,6 +9,7 @@ var pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)/gi;
 var Port = /** @class */ (function () {
     function Port(port) {
         var _this = this;
+        this.parser = new serialport_1.default.parsers.Readline({ delimiter: "\n" });
         this.write = function (dataToWrite) {
             return new Promise(function (res, rej) {
                 var serialData = [];
@@ -47,6 +48,10 @@ var Port = /** @class */ (function () {
             });
         };
         this.port = new serialport_1.default(port, { baudRate: 9600 });
+        this.port.pipe(this.parser);
+        this.parser.on("readable", function () {
+            console.log(_this.port.read());
+        });
     }
     return Port;
 }());
