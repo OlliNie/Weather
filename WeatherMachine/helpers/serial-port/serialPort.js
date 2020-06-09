@@ -25,7 +25,8 @@ var Port = /** @class */ (function () {
                 });
                 setTimeout(function () {
                     handle.removeListener;
-                    rej(new Error("Command Timed Out"));
+                    // rej(new Error("Command Timed Out"));
+                    res(serialData);
                 }, 5000);
                 _this.port.write(dataToWrite + "\n");
             });

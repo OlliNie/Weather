@@ -31,7 +31,8 @@ export class Port {
 
       setTimeout(() => {
         handle.removeListener;
-        rej(new Error("Command Timed Out"));
+        // rej(new Error("Command Timed Out"));
+        res(serialData);
       }, 5000);
 
       this.port.write(`${dataToWrite}\n`);
