@@ -24,7 +24,10 @@ export class Waveshare {
           console.log(res);
           return this.port.send(`${message}`);
         })
-        .then(res)
+        .then((res) => {
+          console.log(res);
+          return this.port.write("AT+CMSS=1");
+        })
         .catch(rej);
     });
 }

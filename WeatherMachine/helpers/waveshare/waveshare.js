@@ -61,7 +61,10 @@ var Waveshare = /** @class */ (function () {
                         console.log(res);
                         return _this.port.send("" + message);
                     })
-                        .then(res)
+                        .then(function (res) {
+                        console.log(res);
+                        return _this.port.write("AT+CMSS=1");
+                    })
                         .catch(rej);
                     return [2 /*return*/];
                 });
