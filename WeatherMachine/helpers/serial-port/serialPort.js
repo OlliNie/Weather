@@ -16,6 +16,7 @@ var Port = /** @class */ (function () {
                 console.log("data to write", dataToWrite);
                 var handle = _this.port.on("data", function (data) {
                     serialData.push(data.toString());
+                    console.log("serialData:", serialData);
                     var answer = serialData.join("").match(pattern);
                     if (answer) {
                         handle.removeListener;
@@ -49,9 +50,9 @@ var Port = /** @class */ (function () {
         };
         this.port = new serialport_1.default(port, { baudRate: 9600 });
         this.port.pipe(this.parser);
-        this.parser.on("readable", function () {
-            console.log(_this.port.read());
-        });
+        // this.parser.on("readable", () => {
+        //   console.log(this.port.read());
+        // });
     }
     return Port;
 }());

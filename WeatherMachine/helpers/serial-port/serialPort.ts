@@ -9,9 +9,9 @@ export class Port {
   constructor(port: string) {
     this.port = new SerialPort(port, { baudRate: 9600 });
     this.port.pipe(this.parser);
-    this.parser.on("readable", () => {
-      console.log(this.port.read());
-    });
+    // this.parser.on("readable", () => {
+    //   console.log(this.port.read());
+    // });
   }
 
   write = (dataToWrite: string) =>
@@ -21,6 +21,7 @@ export class Port {
 
       const handle = this.port.on("data", (data) => {
         serialData.push(data.toString());
+        console.log("serialData:", serialData);
         const answer = serialData.join("").match(pattern);
         if (answer) {
           handle.removeListener;
