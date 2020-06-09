@@ -12,6 +12,7 @@ export class Port {
   write = (dataToWrite: string) =>
     new Promise((res, rej) => {
       let serialData: string[] = [];
+      console.log("data to write", dataToWrite);
 
       const handle = this.port.on("data", (data) => {
         serialData.push(data.toString());

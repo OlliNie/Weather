@@ -12,6 +12,7 @@ var Port = /** @class */ (function () {
         this.write = function (dataToWrite) {
             return new Promise(function (res, rej) {
                 var serialData = [];
+                console.log("data to write", dataToWrite);
                 var handle = _this.port.on("data", function (data) {
                     serialData.push(data.toString());
                     var answer = serialData.join("").match(pattern);
