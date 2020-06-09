@@ -26,7 +26,7 @@ export class Waveshare {
         })
         .then((res) => {
           console.log(res);
-          return this.port.write("AT+CMSS=1");
+          return this.port.write("AT+CMSS=9");
         })
         .catch(rej);
     });
