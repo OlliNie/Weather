@@ -45,22 +45,21 @@ var Port = /** @class */ (function () {
     function Port(port) {
         var _this = this;
         this.parser = new serialport_1.default.parsers.Readline({ delimiter: "\n" });
-        this.write = function (ATcommand) { return __awaiter(_this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                this.port.write(ATcommand + "\n");
-                console.log(this.port.read());
-                setTimeout(function () {
-                    console.log(_this.port.read());
-                }, 3000);
-                return [2 /*return*/];
+        this.write = function (ATcommand, timeout) {
+            if (timeout === void 0) { timeout = 3000; }
+            return __awaiter(_this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    this.port.write(ATcommand + "\n");
+                    console.log(this.port.read());
+                    setTimeout(function () {
+                        console.log(_this.port.read());
+                    }, timeout);
+                    return [2 /*return*/];
+                });
             });
-        }); };
+        };
         this.port = new serialport_1.default(port, { baudRate: 9600 });
-        this.port.pipe(this.parser);
-        this.parser.on("readable", function () {
-            console.log(_this.port.read());
-        });
     }
     return Port;
 }());
