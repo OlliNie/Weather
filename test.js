@@ -1,5 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var waveshare_1 = require("./WeatherMachine/helpers/waveshare/waveshare");
-var port = new waveshare_1.Port("/dev/ttyS0");
-port.write("AT");
+var waveShare = new waveshare_1.Waveshare("/dev/ttyS0");
+var textParams = {
+    number: "0444036147",
+    message: "programmatically awesome!",
+};
+waveShare.text(textParams);

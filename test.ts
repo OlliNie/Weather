@@ -1,5 +1,10 @@
-import { Port } from "./WeatherMachine/helpers/waveshare/waveshare";
+import { Waveshare, Props } from "./WeatherMachine/helpers/waveshare/waveshare";
 
-const port = new Port("/dev/ttyS0");
+const waveShare = new Waveshare("/dev/ttyS0");
 
-port.write("AT");
+const textParams: Props = {
+  number: "0444036147",
+  message: "programmatically awesome!",
+};
+
+waveShare.text(textParams);

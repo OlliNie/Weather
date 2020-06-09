@@ -35,32 +35,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Port = void 0;
-var serialport_1 = __importDefault(require("serialport"));
-var Port = /** @class */ (function () {
-    function Port(port) {
+exports.Waveshare = void 0;
+var serialPort_1 = require("../serial-port/serialPort");
+var Waveshare = /** @class */ (function () {
+    function Waveshare(port) {
         var _this = this;
-        this.parser = new serialport_1.default.parsers.Readline({ delimiter: "\n" });
-        this.write = function (ATcommand, timeout) {
-            if (timeout === void 0) { timeout = 3000; }
-            return __awaiter(_this, void 0, void 0, function () {
+        this.text = function (_a) {
+            var number = _a.number, message = _a.message;
+            return new Promise(function (res, rej) { return __awaiter(_this, void 0, void 0, function () {
                 var _this = this;
                 return __generator(this, function (_a) {
-                    this.port.write(ATcommand + "\n");
-                    console.log(this.port.read());
-                    setTimeout(function () {
-                        console.log(_this.port.read());
-                    }, timeout);
+                    this.port
+                        .write("AT")
+                        .then(function () { return _this.port.write("AT+CMGF=1"); })
+                        .then(function () { return _this.port.write("AT+CMGW=\"" + number + "\""); })
+                        .then(function () { return _this.port.send("" + message); })
+                        .then(res)
+                        .catch(rej);
                     return [2 /*return*/];
                 });
-            });
+            }); });
         };
-        this.port = new serialport_1.default(port, { baudRate: 9600 });
+        this.port = new serialPort_1.Port(port);
     }
-    return Port;
+    return Waveshare;
 }());
-exports.Port = Port;
+exports.Waveshare = Waveshare;

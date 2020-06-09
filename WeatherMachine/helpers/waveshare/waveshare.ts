@@ -1,18 +1,25 @@
-import SerialPort from "serialport";
+import { Port } from "../serial-port/serialPort";
 
-export class Port {
-  port: SerialPort;
-  parser = new SerialPort.parsers.Readline({ delimiter: "\n" });
+export class Waveshare {
+  port: Port;
 
   constructor(port: string) {
-    this.port = new SerialPort(port, { baudRate: 9600 });
+    this.port = new Port(port);
   }
 
-  write = async (ATcommand: string, timeout = 3000) => {
-    this.port.write(`${ATcommand}\n`);
-    console.log(this.port.read());
-    setTimeout(() => {
-      console.log(this.port.read());
-    }, timeout);
-  };
+  text = ({ number, message }: Props) =>
+    new Promise(async (res, rej) => {
+      this.port
+        .write("AT")
+        .then(() => this.port.write("AT+CMGF=1"))
+        .then(() => this.port.write(`AT+CMGW="${number}"`))
+        .then(() => this.port.send(`${message}`))
+        .then(res)
+        .catch(rej);
+    });
+}
+
+export interface Props {
+  number: string;
+  message: string;
 }
