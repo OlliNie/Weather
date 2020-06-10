@@ -13,5 +13,8 @@ if (phoneNumber) {
     message: "programmatically awesome!",
   };
 
-  waveShare.text(textParams);
+  async () => {
+    const testResult = await waveShare.text(textParams);
+    console.log("rest result", testResult);
+  };
 }

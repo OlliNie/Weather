@@ -48,10 +48,18 @@ var Waveshare = /** @class */ (function () {
                 return __generator(this, function (_a) {
                     this.port
                         .write("AT")
-                        .then(function () { return _this.port.write("AT+CMGF=1"); })
-                        .then(function () { return _this.port.write("AT+CMGW=\"" + number + "\""); })
-                        .then(function () { return _this.port.send("" + message); })
-                        .then(res)
+                        .then(function (res) {
+                        console.log(res);
+                        return _this.port.write("AT+CMGF=1");
+                    })
+                        .then(function (res) {
+                        console.log(res);
+                        return _this.port.write("AT+CMGW=\"" + number + "\"");
+                    })
+                        .then(function (res) {
+                        console.log(res);
+                        return _this.port.send("" + message);
+                    })
                         .catch(rej);
                     return [2 /*return*/];
                 });
