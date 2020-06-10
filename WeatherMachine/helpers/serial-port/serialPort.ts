@@ -10,7 +10,7 @@ export class Port {
   }
 
   write = (dataToWrite: string) =>
-    new Promise((res, rej) => {
+    new Promise<Response>((res, rej) => {
       let serialData: string[] = [];
 
       const handle = this.port.on("data", (data) => {
@@ -18,7 +18,12 @@ export class Port {
         const answer = serialData.join("").match(pattern);
         if (answer) {
           handle.removeListener;
-          res(answer[0]);
+          const response: Response = {
+            command: dataToWrite,
+            response: answer[0],
+          };
+
+          res(response);
         }
       });
 
@@ -50,4 +55,9 @@ export class Port {
 
       this.port.write(`${dataToSend}\x1A`);
     });
+}
+
+interface Response {
+  command: string;
+  response: string;
 }

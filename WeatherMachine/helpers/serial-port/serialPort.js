@@ -17,7 +17,11 @@ var Port = /** @class */ (function () {
                     var answer = serialData.join("").match(pattern);
                     if (answer) {
                         handle.removeListener;
-                        res(answer[0]);
+                        var response = {
+                            command: dataToWrite,
+                            response: answer[0],
+                        };
+                        res(response);
                     }
                 });
                 setTimeout(function () {
