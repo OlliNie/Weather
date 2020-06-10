@@ -1,4 +1,6 @@
 import { Port } from "../serial-port/serialPort";
+// @ts-ignore
+import * as gpio from "pi-gpio";
 
 export class Waveshare {
   port: Port;
@@ -36,6 +38,10 @@ export class Waveshare {
         .then((response) => res(response?.response))
         .catch(rej);
     });
+
+  powerOn = () => {
+    gpio.write(7, 1);
+  };
 }
 
 export interface Props {
