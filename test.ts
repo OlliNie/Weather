@@ -1,10 +1,17 @@
+import { config as dotenv } from "dotenv";
 import { Waveshare, Props } from "./WeatherMachine/helpers/waveshare/waveshare";
 
-const waveShare = new Waveshare("/dev/ttyS0");
+dotenv();
 
-const textParams: Props = {
-  number: "0444036147",
-  message: "programmatically awesome!",
-};
+const phoneNumber = process.env.PHONE_NUMBER;
 
-waveShare.text(textParams);
+if (phoneNumber) {
+  const waveShare = new Waveshare("/dev/ttyS0");
+
+  const textParams: Props = {
+    number: phoneNumber,
+    message: "programmatically awesome!",
+  };
+
+  waveShare.text(textParams);
+}
