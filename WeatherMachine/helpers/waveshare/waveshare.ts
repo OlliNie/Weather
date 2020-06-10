@@ -23,7 +23,13 @@ export class Waveshare {
           console.log(res);
           return this.port.send(`${message}`);
         })
-        .then((res) => console.log("res", res))
+        .then((res) => {
+          console.log("res", res);
+          if (res.response.includes("+CMGW")) {
+            const textIndex = +res.response.slice(6);
+            console.log("textIndes", textIndex);
+          }
+        })
         .catch(rej);
     });
 }

@@ -60,7 +60,13 @@ var Waveshare = /** @class */ (function () {
                         console.log(res);
                         return _this.port.send("" + message);
                     })
-                        .then(function (res) { return console.log("res", res); })
+                        .then(function (res) {
+                        console.log("res", res);
+                        if (res.response.includes("+CMGW")) {
+                            var textIndex = +res.response.slice(6);
+                            console.log("textIndes", textIndex);
+                        }
+                    })
                         .catch(rej);
                     return [2 /*return*/];
                 });

@@ -36,7 +36,7 @@ export class Port {
     });
 
   send = (dataToSend: string) =>
-    new Promise((res, rej) => {
+    new Promise<Response>((res, rej) => {
       let serialData: string[] = [];
 
       const handle = this.port.on("data", (data) => {
@@ -44,7 +44,11 @@ export class Port {
         const answer = serialData.join("").match(pattern);
         if (answer) {
           handle.removeListener;
-          res(answer[0]);
+          const response = {
+            command: dataToSend,
+            response: answer[0],
+          };
+          res(response);
         }
       });
 
