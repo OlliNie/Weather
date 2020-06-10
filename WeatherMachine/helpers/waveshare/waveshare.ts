@@ -23,6 +23,7 @@ export class Waveshare {
           console.log(res);
           return this.port.send(`${message}`);
         })
+        .then((res) => console.log("res", res))
         .catch(rej);
     });
 }

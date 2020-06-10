@@ -60,6 +60,7 @@ var Waveshare = /** @class */ (function () {
                         console.log(res);
                         return _this.port.send("" + message);
                     })
+                        .then(function (res) { return console.log("res", res); })
                         .catch(rej);
                     return [2 /*return*/];
                 });
