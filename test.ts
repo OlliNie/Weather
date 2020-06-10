@@ -14,8 +14,8 @@ if (phoneNumber) {
   };
 
   (async () => {
-    waveShare.powerOn();
-    // const testResult = await waveShare.text(textParams);
-    // console.log("rest result", testResult);
+    // waveShare.powerOn();
+    const testResult = await waveShare.text(textParams);
+    console.log("rest result", testResult);
   })();
 }

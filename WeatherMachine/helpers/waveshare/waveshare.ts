@@ -40,6 +40,7 @@ export class Waveshare {
     });
 
   powerOn = () => {
+    gpio.open();
     gpio.write(4, 1, (cb: any) => console.log(cb));
   };
 }
