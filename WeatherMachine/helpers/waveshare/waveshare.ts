@@ -24,12 +24,13 @@ export class Waveshare {
           return this.port.send(`${message}`);
         })
         .then((res) => {
-          console.log("res", res);
+          console.log(res);
           if (res.response.includes("+CMGW")) {
             const textIndex = +res.response.slice(6);
-            console.log("textIndes", textIndex);
+            return this.port.write(`AT+CMSS=${textIndex}`);
           }
         })
+        .then(console.log)
         .catch(rej);
     });
 }
