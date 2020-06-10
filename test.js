@@ -57,5 +57,5 @@ if (phoneNumber) {
                     return [2 /*return*/];
             }
         });
-    }); });
+    }); })();
 }
