@@ -1,6 +1,6 @@
 import SerialPort from "serialport";
 
-const pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)|(?<=\r\n)./gi;
+const pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)|(?<=\r\n)>/gi;
 
 export class Port {
   port: SerialPort;

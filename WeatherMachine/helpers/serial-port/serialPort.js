@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Port = void 0;
 var serialport_1 = __importDefault(require("serialport"));
-var pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)|(?<=\r\n)./gi;
+var pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)|(?<=\r\n)>/gi;
 var Port = /** @class */ (function () {
     function Port(port) {
         var _this = this;
