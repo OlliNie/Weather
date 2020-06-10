@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -57,11 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Waveshare = void 0;
 var serialPort_1 = require("../serial-port/serialPort");
-// @ts-ignore
-var gpio = __importStar(require("pi-gpio"));
+var rpi_gpio_1 = require("rpi-gpio");
 var Waveshare = /** @class */ (function () {
     function Waveshare(port) {
         var _this = this;
+        this.gpio = rpi_gpio_1.promise;
         this.text = function (_a) {
             var number = _a.number, message = _a.message;
             return new Promise(function (res, rej) { return __awaiter(_this, void 0, void 0, function () {
@@ -97,8 +78,10 @@ var Waveshare = /** @class */ (function () {
             }); });
         };
         this.powerOn = function () {
-            gpio.open(7, "output", function (e) { return console.log("open cb:", e); });
-            gpio.write(7, 1, function (cb) { return console.log(cb); });
+            rpi_gpio_1.promise
+                .setup(7, rpi_gpio_1.promise.DIR_OUT)
+                .then(function () { return rpi_gpio_1.promise.write(7, true); })
+                .catch(console.log);
         };
         this.port = new serialPort_1.Port(port);
     }

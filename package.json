@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/rpi-gpio": "^2.1.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.14.5",
-    "pi-gpio": "0.0.8",
     "serialport": "^9.0.0",
     "typescript": "^3.9.3"
   },

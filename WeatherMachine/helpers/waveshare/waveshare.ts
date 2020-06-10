@@ -1,9 +1,10 @@
 import { Port } from "../serial-port/serialPort";
-// @ts-ignore
-import * as gpio from "pi-gpio";
+
+import { promise as gpio } from "rpi-gpio";
 
 export class Waveshare {
   port: Port;
+  gpio = gpio;
 
   constructor(port: string) {
     this.port = new Port(port);
@@ -40,8 +41,10 @@ export class Waveshare {
     });
 
   powerOn = () => {
-    gpio.open(7, "output", (e: any) => console.log("open cb:", e));
-    gpio.write(7, 1, (cb: any) => console.log(cb));
+    gpio
+      .setup(7, gpio.DIR_OUT)
+      .then(() => gpio.write(7, true))
+      .catch(console.log);
   };
 }
 
