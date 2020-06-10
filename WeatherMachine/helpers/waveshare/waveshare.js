@@ -97,8 +97,8 @@ var Waveshare = /** @class */ (function () {
             }); });
         };
         this.powerOn = function () {
-            gpio.open();
-            gpio.write(4, 1, function (cb) { return console.log(cb); });
+            gpio.open(7);
+            gpio.write(7, 1, function (cb) { return console.log(cb); });
         };
         this.port = new serialPort_1.Port(port);
     }

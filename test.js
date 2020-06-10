@@ -42,20 +42,14 @@ dotenv_1.config();
 var phoneNumber = process.env.PHONE_NUMBER;
 if (phoneNumber) {
     var waveShare_1 = new waveshare_1.Waveshare("/dev/ttyS0");
-    var textParams_1 = {
+    var textParams = {
         number: phoneNumber,
         message: "programmatically awesome!",
     };
     (function () { return __awaiter(void 0, void 0, void 0, function () {
-        var testResult;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, waveShare_1.text(textParams_1)];
-                case 1:
-                    testResult = _a.sent();
-                    console.log("rest result", testResult);
-                    return [2 /*return*/];
-            }
+            waveShare_1.powerOn();
+            return [2 /*return*/];
         });
     }); })();
 }
