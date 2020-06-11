@@ -79,8 +79,10 @@ var Waveshare = /** @class */ (function () {
         };
         this.powerOn = function () {
             rpi_gpio_1.promise
-                .setup(7, rpi_gpio_1.promise.DIR_OUT)
+                .setup(7, rpi_gpio_1.promise.DIR_IN)
                 .then(function () { return rpi_gpio_1.promise.write(7, true); })
+                .then(function () { return rpi_gpio_1.promise.read(7); })
+                .then(function (res) { return console.log("resposne", res); })
                 .catch(console.log);
         };
         this.port = new serialPort_1.Port(port);
