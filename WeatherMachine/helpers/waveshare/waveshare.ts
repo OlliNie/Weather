@@ -11,6 +11,7 @@ export class Waveshare {
     this.port = new Port(port);
   }
 
+  write = (data: string) => this.port.write(data);
   text = ({ number, message }: Props) =>
     new Promise(async (res, rej) => {
       this.port
@@ -37,8 +38,7 @@ export class Waveshare {
             );
           }
         })
-        .then((response) => res(response?.response))
-        .catch(rej);
+        .then((response) => res(response?.response));
     });
 
   togglePower = () => {

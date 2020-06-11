@@ -43,6 +43,7 @@ var Waveshare = /** @class */ (function () {
     function Waveshare(port) {
         var _this = this;
         this.gpio = rpi_gpio_1.promise;
+        this.write = function (data) { return _this.port.write(data); };
         this.text = function (_a) {
             var number = _a.number, message = _a.message;
             return new Promise(function (res, rej) { return __awaiter(_this, void 0, void 0, function () {
@@ -71,8 +72,7 @@ var Waveshare = /** @class */ (function () {
                             rej(new Error("Expected response to have +CMGW, got: " + res.response));
                         }
                     })
-                        .then(function (response) { return res(response === null || response === void 0 ? void 0 : response.response); })
-                        .catch(rej);
+                        .then(function (response) { return res(response === null || response === void 0 ? void 0 : response.response); });
                     return [2 /*return*/];
                 });
             }); });
