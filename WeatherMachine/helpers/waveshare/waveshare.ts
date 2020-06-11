@@ -42,7 +42,7 @@ export class Waveshare {
 
   powerOn = () => {
     gpio
-      .setup(7, gpio.DIR_OUT)
+      .setup(7, gpio.DIR_IN)
       .then(() => gpio.write(7, true))
       .catch(console.log);
   };
