@@ -48,7 +48,11 @@ if (phoneNumber) {
     };
     (function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            waveShare_1.togglePower();
+            waveShare_1.write("AT").then(function (res) {
+                console.log("power on check:", res);
+                //  If get respose from chip, dont power on
+                //  If no response, power on and check for response
+            });
             return [2 /*return*/];
         });
     }); })();

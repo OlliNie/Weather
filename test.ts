@@ -14,7 +14,14 @@ if (phoneNumber) {
   };
 
   (async () => {
-    waveShare.togglePower();
+    waveShare.write("AT").then((res) => {
+      console.log("power on check:", res);
+      //  If get respose from chip, dont power on
+
+      //  If no response, power on and check for response
+    });
+
+    // waveShare.togglePower();
 
     // const testResult = await waveShare.text(textParams);
     // console.log("rest result", testResult);
