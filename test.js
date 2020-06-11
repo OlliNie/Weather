@@ -48,10 +48,7 @@ if (phoneNumber) {
     };
     (function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            waveShare_1.powerOn();
-            setTimeout(function () {
-                waveShare_1.powerOff();
-            }, 5000);
+            waveShare_1.togglePower();
             return [2 /*return*/];
         });
     }); })();
