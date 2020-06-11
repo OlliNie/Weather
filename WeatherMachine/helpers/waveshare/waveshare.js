@@ -86,10 +86,12 @@ var Waveshare = /** @class */ (function () {
                 return rpi_gpio_1.promise.write(7, true);
             })
                 .then(function (res) {
-                setTimeout(function () {
-                    console.log("res:", res);
-                    return rpi_gpio_1.promise.read(7);
-                }, 5000);
+                return new Promise(function (res, rej) {
+                    setTimeout(function () {
+                        console.log("res:", res);
+                        res(rpi_gpio_1.promise.read(7));
+                    }, 5000);
+                });
             })
                 .then(function (res) { return console.log("final state:", res); })
                 .catch(console.log);

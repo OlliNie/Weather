@@ -49,10 +49,12 @@ export class Waveshare {
         return gpio.write(7, true);
       })
       .then((res) => {
-        setTimeout(() => {
-          console.log("res:", res);
-          return gpio.read(7);
-        }, 5000);
+        return new Promise((res, rej) => {
+          setTimeout(() => {
+            console.log("res:", res);
+            res(gpio.read(7));
+          }, 5000);
+        });
       })
       .then((res) => console.log("final state:", res))
       .catch(console.log);
