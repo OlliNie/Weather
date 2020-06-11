@@ -79,15 +79,15 @@ var Waveshare = /** @class */ (function () {
         };
         this.powerOn = function () {
             rpi_gpio_1.promise
-                .setup(7, rpi_gpio_1.promise.DIR_LOW)
-                .then(function () { return rpi_gpio_1.promise.read(7); })
+                .setup(3, rpi_gpio_1.promise.DIR_OUT)
+                .then(function () { return rpi_gpio_1.promise.read(3); })
                 .then(function (res) {
                 console.log("initial state:", res);
                 return rpi_gpio_1.promise.write(7, true);
             })
                 .then(function (res) {
                 console.log("res:", res);
-                return rpi_gpio_1.promise.read(7);
+                return rpi_gpio_1.promise.read(3);
             })
                 .then(function (res) { return console.log("final state:", res); })
                 .catch(console.log);
