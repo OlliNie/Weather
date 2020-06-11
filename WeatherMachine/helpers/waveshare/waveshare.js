@@ -42,7 +42,7 @@ var rpi_gpio_1 = require("rpi-gpio");
 var Waveshare = /** @class */ (function () {
     function Waveshare(port) {
         var _this = this;
-        this.gpio = rpi_gpio_1.promise;
+        this.gpio = rpi_gpio_1.promise.setup(7, rpi_gpio_1.promise.DIR_OUT);
         this.text = function (_a) {
             var number = _a.number, message = _a.message;
             return new Promise(function (res, rej) { return __awaiter(_this, void 0, void 0, function () {
@@ -79,8 +79,7 @@ var Waveshare = /** @class */ (function () {
         };
         this.powerOn = function () {
             rpi_gpio_1.promise
-                .setup(7, rpi_gpio_1.promise.DIR_OUT)
-                .then(function () { return rpi_gpio_1.promise.read(7); })
+                .read(7)
                 .then(function (res) {
                 console.log("initial state:", res);
                 return rpi_gpio_1.promise.write(7, false);
@@ -93,7 +92,6 @@ var Waveshare = /** @class */ (function () {
                     }, 5000);
                 });
             })
-                .then(function (res) { return console.log("final state:", res); })
                 .catch(console.log);
         };
         this.port = new serialPort_1.Port(port);

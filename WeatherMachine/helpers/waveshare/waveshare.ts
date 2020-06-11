@@ -4,7 +4,7 @@ import { promise as gpio } from "rpi-gpio";
 
 export class Waveshare {
   port: Port;
-  gpio = gpio;
+  gpio = gpio.setup(7, gpio.DIR_OUT);
 
   constructor(port: string) {
     this.port = new Port(port);
@@ -42,8 +42,7 @@ export class Waveshare {
 
   powerOn = () => {
     gpio
-      .setup(7, gpio.DIR_OUT)
-      .then(() => gpio.read(7))
+      .read(7)
       .then((res) => {
         console.log("initial state:", res);
         return gpio.write(7, false);
@@ -56,7 +55,6 @@ export class Waveshare {
           }, 5000);
         });
       })
-      .then((res) => console.log("final state:", res))
       .catch(console.log);
   };
 }
