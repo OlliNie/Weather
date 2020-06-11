@@ -42,11 +42,11 @@ export class Waveshare {
 
   powerOn = () => {
     gpio
-      .setup(7, gpio.DIR_OUT, gpio.EDGE_NONE)
+      .setup(7, gpio.DIR_OUT)
       .then(() => gpio.read(7))
       .then((res) => {
         console.log("initial state:", res);
-        return gpio.write(7, true);
+        return gpio.write(7, false);
       })
       .then((res) => {
         return new Promise((res, rej) => {
