@@ -41,7 +41,7 @@ export class Waveshare {
         .catch(rej);
     });
 
-  powerOn = () => {
+  togglePower = () => {
     gpio
       .setup(7, gpio.DIR_OUT)
       .then(() => gpio.read(7))
@@ -52,26 +52,7 @@ export class Waveshare {
       .then((res) => {
         return new Promise((res, rej) => {
           setTimeout(() => {
-            console.log("res:", res);
-            res(gpio.read(7));
-          }, 5000);
-        });
-      })
-      .catch(console.log);
-  };
-  powerOff = () => {
-    gpio
-      .setup(7, gpio.DIR_OUT)
-      .then(() => gpio.read(7))
-      .then((res) => {
-        console.log("initial state:", res);
-        return gpio.write(7, true);
-      })
-      .then((res) => {
-        return new Promise((res, rej) => {
-          setTimeout(() => {
-            console.log("res:", res);
-            res(gpio.read(7));
+            res(gpio.write(7, true));
           }, 5000);
         });
       })

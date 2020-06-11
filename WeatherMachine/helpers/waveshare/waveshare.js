@@ -77,7 +77,7 @@ var Waveshare = /** @class */ (function () {
                 });
             }); });
         };
-        this.powerOn = function () {
+        this.togglePower = function () {
             rpi_gpio_1.promise
                 .setup(7, rpi_gpio_1.promise.DIR_OUT)
                 .then(function () { return rpi_gpio_1.promise.read(7); })
@@ -88,26 +88,7 @@ var Waveshare = /** @class */ (function () {
                 .then(function (res) {
                 return new Promise(function (res, rej) {
                     setTimeout(function () {
-                        console.log("res:", res);
-                        res(rpi_gpio_1.promise.read(7));
-                    }, 5000);
-                });
-            })
-                .catch(console.log);
-        };
-        this.powerOff = function () {
-            rpi_gpio_1.promise
-                .setup(7, rpi_gpio_1.promise.DIR_OUT)
-                .then(function () { return rpi_gpio_1.promise.read(7); })
-                .then(function (res) {
-                console.log("initial state:", res);
-                return rpi_gpio_1.promise.write(7, true);
-            })
-                .then(function (res) {
-                return new Promise(function (res, rej) {
-                    setTimeout(function () {
-                        console.log("res:", res);
-                        res(rpi_gpio_1.promise.read(7));
+                        res(rpi_gpio_1.promise.write(7, true));
                     }, 5000);
                 });
             })
