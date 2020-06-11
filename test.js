@@ -60,11 +60,14 @@ if (phoneNumber) {
                 console.log("e", e);
                 waveShare_1
                     .togglePower()
+                    .then(function () { return waveShare_1.write("AT"); })
                     .then(function (res) {
-                    // resolve true
+                    // resolve power on
+                    console.log("power on");
                 })
                     .catch(function () {
-                    // resolve error
+                    // toggling didnt turn power on
+                    console.log("toggle didnt help");
                 });
             });
             return [2 /*return*/];
