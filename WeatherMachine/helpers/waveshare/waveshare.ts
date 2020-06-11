@@ -44,7 +44,10 @@ export class Waveshare {
     gpio
       .setup(7, gpio.DIR_IN)
       .then(() => gpio.write(7, true))
-      .then(() => gpio.read(7))
+      .then((res) => {
+        console.log("res:", res);
+        return gpio.read(7);
+      })
       .then((res) => console.log("resposne", res))
       .catch(console.log);
   };
