@@ -95,7 +95,25 @@ var Waveshare = /** @class */ (function () {
             })
                 .catch(console.log);
         };
-        rpi_gpio_1.promise.destroy();
+        this.powerOff = function () {
+            rpi_gpio_1.promise
+                .setup(7, rpi_gpio_1.promise.DIR_OUT)
+                .then(function () { return rpi_gpio_1.promise.read(7); })
+                .then(function (res) {
+                console.log("initial state:", res);
+                return rpi_gpio_1.promise.write(7, true);
+            })
+                .then(function (res) {
+                return new Promise(function (res, rej) {
+                    setTimeout(function () {
+                        console.log("res:", res);
+                        res(rpi_gpio_1.promise.read(7));
+                    }, 5000);
+                });
+            })
+                .catch(console.log);
+        };
+        // gpio.destroy();
         this.port = new serialPort_1.Port(port);
     }
     return Waveshare;
