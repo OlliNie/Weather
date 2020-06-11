@@ -15,6 +15,10 @@ if (phoneNumber) {
 
   (async () => {
     waveShare.powerOn();
+
+    setTimeout(() => {
+      waveShare.powerOff();
+    }, 5000);
     // const testResult = await waveShare.text(textParams);
     // console.log("rest result", testResult);
   })();
