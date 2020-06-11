@@ -78,7 +78,7 @@ var Waveshare = /** @class */ (function () {
             }); });
         };
         this.togglePower = function () {
-            rpi_gpio_1.promise
+            return rpi_gpio_1.promise
                 .setup(7, rpi_gpio_1.promise.DIR_OUT)
                 .then(function () { return rpi_gpio_1.promise.read(7); })
                 .then(function (res) {
@@ -91,8 +91,7 @@ var Waveshare = /** @class */ (function () {
                         res(rpi_gpio_1.promise.write(7, true));
                     }, 5000);
                 });
-            })
-                .catch(console.log);
+            });
         };
         // gpio.destroy();
         this.port = new serialPort_1.Port(port);

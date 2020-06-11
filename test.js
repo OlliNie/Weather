@@ -51,13 +51,21 @@ if (phoneNumber) {
             waveShare_1
                 .write("AT")
                 .then(function (res) {
-                console.log("power on check:", res);
-                //  If get respose from chip, dont power on
+                if (res) {
+                    // resolve power on
+                }
             })
                 .catch(function (e) {
                 //  If no response, power on and check for response
                 console.log("e", e);
-                waveShare_1.togglePower();
+                waveShare_1
+                    .togglePower()
+                    .then(function (res) {
+                    // resolve true
+                })
+                    .catch(function () {
+                    // resolve error
+                });
             });
             return [2 /*return*/];
         });

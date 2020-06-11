@@ -12,6 +12,7 @@ export class Waveshare {
   }
 
   write = (data: string) => this.port.write(data);
+
   text = ({ number, message }: Props) =>
     new Promise(async (res, rej) => {
       this.port
@@ -42,7 +43,7 @@ export class Waveshare {
     });
 
   togglePower = () => {
-    gpio
+    return gpio
       .setup(7, gpio.DIR_OUT)
       .then(() => gpio.read(7))
       .then((res) => {
@@ -55,8 +56,7 @@ export class Waveshare {
             res(gpio.write(7, true));
           }, 5000);
         });
-      })
-      .catch(console.log);
+      });
   };
 }
 
