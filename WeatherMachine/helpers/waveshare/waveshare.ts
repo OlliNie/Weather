@@ -98,7 +98,7 @@ export class Waveshare {
           console.log("stateOfRegistration:", stateOfRegistration)
         )
         .then(async () => {
-          const availableNetworks = this.getAvailableNetworks();
+          const availableNetworks = await this.getAvailableNetworks();
           console.log("availableNetworks", availableNetworks);
         })
         .then(() => res(true));

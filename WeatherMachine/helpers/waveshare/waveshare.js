@@ -136,9 +136,13 @@ var Waveshare = /** @class */ (function () {
                     .then(function () { return __awaiter(_this, void 0, void 0, function () {
                     var availableNetworks;
                     return __generator(this, function (_a) {
-                        availableNetworks = this.getAvailableNetworks();
-                        console.log("availableNetworks", availableNetworks);
-                        return [2 /*return*/];
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, this.getAvailableNetworks()];
+                            case 1:
+                                availableNetworks = _a.sent();
+                                console.log("availableNetworks", availableNetworks);
+                                return [2 /*return*/];
+                        }
                     });
                 }); })
                     .then(function () { return res(true); });
