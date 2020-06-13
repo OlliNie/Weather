@@ -161,7 +161,7 @@ var Waveshare = /** @class */ (function () {
                             case 6:
                                 test = _a.sent();
                                 console.log("test", test);
-                                return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 1000 * 30)];
+                                return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 15000)];
                             case 7:
                                 connected = _a.sent();
                                 console.log("connected", connected);
