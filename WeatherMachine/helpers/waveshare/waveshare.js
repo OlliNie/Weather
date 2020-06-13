@@ -165,7 +165,7 @@ var Waveshare = /** @class */ (function () {
                             case 7:
                                 connected = _a.sent();
                                 console.log("connected", connected);
-                                return [4 /*yield*/, this.port.write("AT+CGDCONT?", 15000)];
+                                return [4 /*yield*/, this.port.write("AT+CGDSCONT?", 15000)];
                             case 8:
                                 check = _a.sent();
                                 console.log("connection status", check);
