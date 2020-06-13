@@ -110,7 +110,7 @@ export class Waveshare {
           const currentNetworkStatus = await this.port.write("AT+COPS?");
           console.log("currentNetworkStatus:", currentNetworkStatus);
           // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-          await this.port.write("AT+CGATT=1");
+          await this.port.write("AT+CGATT=1", 15000);
           // AT+CGATT?    [ To return the current state of GPRS service : Attach/Detach ]
           const currenStateGprsService = await this.port.write("AT+CGATT?");
           console.log("currenStateGprsService", currenStateGprsService);
@@ -123,7 +123,7 @@ export class Waveshare {
 
           console.log("test", test);
 
-          const connected = await this.port.write("AT+CGACT=1", 15000);
+          const connected = await this.port.write("AT+CGACT=1", 30000);
 
           console.log("connected", connected);
         })
