@@ -97,13 +97,22 @@ export class Waveshare {
         .then((stateOfRegistration) =>
           console.log("stateOfRegistration:", stateOfRegistration)
         )
-        .then(() => this.port.write("AT+COPS=?"))
-        .then((availableNetowrks) =>
-          console.log("availableNetworks:", availableNetowrks)
-        )
+        .then(async () => {
+          const availableNetworks = this.getAvailableNetworks();
+          console.log("availableNetworks", availableNetworks);
+        })
         .then(() => res(true));
     });
   };
+
+  getAvailableNetworks = () =>
+    new Promise((res, rej) => {
+      const pattern = /[1-9]/;
+      this.port
+        .write("AT+COPS=?")
+        .then((r) => r.response.match(pattern))
+        .then((a) => res(a));
+    });
 }
 
 export interface Props {

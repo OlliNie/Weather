@@ -133,11 +133,24 @@ var Waveshare = /** @class */ (function () {
                     .then(function (stateOfRegistration) {
                     return console.log("stateOfRegistration:", stateOfRegistration);
                 })
-                    .then(function () { return _this.port.write("AT+COPS=?"); })
-                    .then(function (availableNetowrks) {
-                    return console.log("availableNetworks:", availableNetowrks);
-                })
+                    .then(function () { return __awaiter(_this, void 0, void 0, function () {
+                    var availableNetworks;
+                    return __generator(this, function (_a) {
+                        availableNetworks = this.getAvailableNetworks();
+                        console.log("availableNetworks", availableNetworks);
+                        return [2 /*return*/];
+                    });
+                }); })
                     .then(function () { return res(true); });
+            });
+        };
+        this.getAvailableNetworks = function () {
+            return new Promise(function (res, rej) {
+                var pattern = /[1-9]/;
+                _this.port
+                    .write("AT+COPS=?")
+                    .then(function (r) { return r.response.match(pattern); })
+                    .then(function (a) { return res(a); });
             });
         };
         // gpio.destroy();
