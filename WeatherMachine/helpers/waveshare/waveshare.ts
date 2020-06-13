@@ -123,7 +123,7 @@ export class Waveshare {
 
           console.log("test", test);
 
-          const connected = await this.port.write("AT+CGACT=1 ", 15000);
+          const connected = await this.port.write("AT+CGACT=1", 15000);
 
           console.log("connected", connected);
         })
