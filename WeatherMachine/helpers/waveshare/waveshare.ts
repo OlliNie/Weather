@@ -111,8 +111,10 @@ export class Waveshare {
       this.port
         .write("AT+COPS=?")
         .then((r) => {
+          console.log("response", r);
           const networks = r.response.match(pattern);
           console.log("Pattern match", networks);
+          return networks;
         })
         .then((a) => res(a));
     });

@@ -154,8 +154,10 @@ var Waveshare = /** @class */ (function () {
                 _this.port
                     .write("AT+COPS=?")
                     .then(function (r) {
+                    console.log("response", r);
                     var networks = r.response.match(pattern);
                     console.log("Pattern match", networks);
+                    return networks;
                 })
                     .then(function (a) { return res(a); });
             });
