@@ -134,23 +134,22 @@ var Waveshare = /** @class */ (function () {
                     return console.log("stateOfRegistration:", stateOfRegistration);
                 })
                     .then(function () { return __awaiter(_this, void 0, void 0, function () {
-                    var availableNetworks, currentNetworkStatus, currenStateGprsService, connected;
+                    var availableNetworks, selectedOperator, currentNetworkStatus, currenStateGprsService, connected;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, this.getAvailableNetworks()];
                             case 1:
                                 availableNetworks = _a.sent();
-                                //  manually select available operator
                                 return [4 /*yield*/, this.port.write("AT+COPS=" + availableNetworks[0])];
                             case 2:
-                                //  manually select available operator
-                                _a.sent();
+                                selectedOperator = _a.sent();
+                                console.log("selectedOperator:", selectedOperator);
                                 return [4 /*yield*/, this.port.write("AT+COPS?")];
                             case 3:
                                 currentNetworkStatus = _a.sent();
                                 console.log("currentNetworkStatus:", currentNetworkStatus);
                                 // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-                                return [4 /*yield*/, this.port.write("AT+CGATT=1")];
+                                return [4 /*yield*/, this.port.write("AT+CGATT=1", nb)];
                             case 4:
                                 // AT+CGATT=1    [ to attach the terminal to GPRS service ]
                                 _a.sent();

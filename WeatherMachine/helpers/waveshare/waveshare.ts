@@ -102,12 +102,13 @@ export class Waveshare {
           const availableNetworks = await this.getAvailableNetworks();
 
           //  manually select available operator
-          await this.port.write(`AT+COPS=${availableNetworks[0]}`);
+          const selectedOperator = await this.port.write(`AT+COPS=${availableNetworks[0]}`);
+          console.log("selectedOperator:", selectedOperator)
           // check current network
           const currentNetworkStatus = await this.port.write("AT+COPS?");
           console.log("currentNetworkStatus:", currentNetworkStatus);
           // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-          await this.port.write("AT+CGATT=1");
+          await this.port.write("AT+CGATT=1"nb);
           // AT+CGATT?    [ To return the current state of GPRS service : Attach/Detach ]
           const currenStateGprsService = await this.port.write("AT+CGATT?");
           console.log("currenStateGprsService", currenStateGprsService);
