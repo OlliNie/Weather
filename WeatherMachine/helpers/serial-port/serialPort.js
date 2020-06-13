@@ -9,7 +9,8 @@ var pattern = /(?<=\r|\r\n|\r).*(?=\r|\r\n|\r)|(?<=\r\n)>/gi;
 var Port = /** @class */ (function () {
     function Port(port) {
         var _this = this;
-        this.write = function (dataToWrite) {
+        this.write = function (dataToWrite, timeout) {
+            if (timeout === void 0) { timeout = 5000; }
             return new Promise(function (res, rej) {
                 var serialData = [];
                 var handle = _this.port.on("data", function (data) {
@@ -27,7 +28,7 @@ var Port = /** @class */ (function () {
                 setTimeout(function () {
                     handle.removeListener;
                     rej(new Error("Command Timed Out"));
-                }, 5000);
+                }, timeout);
                 _this.port.write(dataToWrite + "\n");
             });
         };

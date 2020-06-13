@@ -135,12 +135,44 @@ var Waveshare = /** @class */ (function () {
                 })
                     .then(function () { return __awaiter(_this, void 0, void 0, function () {
                     var availableNetworks;
+                    var _this = this;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, this.getAvailableNetworks()];
                             case 1:
                                 availableNetworks = _a.sent();
-                                console.log("availableNetworks", availableNetworks);
+                                availableNetworks.map(function (network) { return __awaiter(_this, void 0, void 0, function () {
+                                    var currentNetworkStatus, currenStateGprsService, connected;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0: 
+                                            //  manually select available operator
+                                            return [4 /*yield*/, this.port.write("AT+COPS=" + network)];
+                                            case 1:
+                                                //  manually select available operator
+                                                _a.sent();
+                                                currentNetworkStatus = this.port.write("AT+COPS?");
+                                                console.log("currentNetworkStatus:", currentNetworkStatus);
+                                                // AT+CGATT=1    [ to attach the terminal to GPRS service ]
+                                                return [4 /*yield*/, this.port.write("AT+CGATT=1")];
+                                            case 2:
+                                                // AT+CGATT=1    [ to attach the terminal to GPRS service ]
+                                                _a.sent();
+                                                return [4 /*yield*/, this.port.write("AT+CGATT?")];
+                                            case 3:
+                                                currenStateGprsService = _a.sent();
+                                                console.log("currenStateGprsService", currenStateGprsService);
+                                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
+                                                // saunalahti should be internet for prepaid.  Some say internet.internet
+                                                this.port.write("AT+CGDCONT=" + network + ",\"IP\",\"internet\" ");
+                                                return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 1000 * 30)];
+                                            case 4:
+                                                connected = _a.sent();
+                                                console.log("connected", connected);
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                }); });
                                 return [2 /*return*/];
                         }
                     });

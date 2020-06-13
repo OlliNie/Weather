@@ -1,6 +1,7 @@
 import { Port } from "../serial-port/serialPort";
 
 import { promise as gpio } from "rpi-gpio";
+import { withRouter } from "react-router";
 
 export class Waveshare {
   port: Port;
@@ -99,20 +100,39 @@ export class Waveshare {
         )
         .then(async () => {
           const availableNetworks = await this.getAvailableNetworks();
-          console.log("availableNetworks", availableNetworks);
+          availableNetworks.map(async (network) => {
+            //  manually select available operator
+            await this.port.write(`AT+COPS=${network}`);
+            // check current network
+            const currentNetworkStatus = this.port.write("AT+COPS?");
+            console.log("currentNetworkStatus:", currentNetworkStatus);
+            // AT+CGATT=1    [ to attach the terminal to GPRS service ]
+            await this.port.write("AT+CGATT=1");
+            // AT+CGATT?    [ To return the current state of GPRS service : Attach/Detach ]
+            const currenStateGprsService = await this.port.write("AT+CGATT?");
+            console.log("currenStateGprsService", currenStateGprsService);
+            // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
+            // saunalahti should be internet for prepaid.  Some say internet.internet
+            this.port.write(`AT+CGDCONT=${network},"IP","internet" `);
+
+            const connected = await this.port.write("AT+CGACT=1 ", 1000 * 30);
+
+            console.log("connected", connected);
+          });
         })
         .then(() => res(true));
     });
   };
 
   getAvailableNetworks = () =>
-    new Promise((res, rej) => {
+    new Promise<Number[]>((res, rej) => {
       const pattern = /[1-9]/g;
       this.port
+
         .write("AT+COPS=?")
         .then((r) => {
           console.log("response", r);
-          const networks = r.response.match(pattern);
+          const networks = (r.response.match(pattern) as unknown) as number[];
           console.log("Pattern match", networks);
           return networks;
         })

@@ -9,7 +9,7 @@ export class Port {
     this.port = new SerialPort(port, { baudRate: 9600 });
   }
 
-  write = (dataToWrite: string) =>
+  write = (dataToWrite: string, timeout = 5000) =>
     new Promise<Response>((res, rej) => {
       let serialData: string[] = [];
 
@@ -30,7 +30,7 @@ export class Port {
       setTimeout(() => {
         handle.removeListener;
         rej(new Error("Command Timed Out"));
-      }, 5000);
+      }, timeout);
 
       this.port.write(`${dataToWrite}\n`);
     });
