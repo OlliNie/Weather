@@ -107,10 +107,13 @@ export class Waveshare {
 
   getAvailableNetworks = () =>
     new Promise((res, rej) => {
-      const pattern = /[1-9]/;
+      const pattern = /[1-9]/g;
       this.port
         .write("AT+COPS=?")
-        .then((r) => r.response.match(pattern))
+        .then((r) => {
+          const networks = r.response.match(pattern);
+          console.log("Pattern match", networks);
+        })
         .then((a) => res(a));
     });
 }

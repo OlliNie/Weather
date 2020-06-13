@@ -150,10 +150,13 @@ var Waveshare = /** @class */ (function () {
         };
         this.getAvailableNetworks = function () {
             return new Promise(function (res, rej) {
-                var pattern = /[1-9]/;
+                var pattern = /[1-9]/g;
                 _this.port
                     .write("AT+COPS=?")
-                    .then(function (r) { return r.response.match(pattern); })
+                    .then(function (r) {
+                    var networks = r.response.match(pattern);
+                    console.log("Pattern match", networks);
+                })
                     .then(function (a) { return res(a); });
             });
         };
