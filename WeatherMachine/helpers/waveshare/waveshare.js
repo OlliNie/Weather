@@ -134,7 +134,7 @@ var Waveshare = /** @class */ (function () {
                     return console.log("stateOfRegistration:", stateOfRegistration);
                 })
                     .then(function () { return __awaiter(_this, void 0, void 0, function () {
-                    var availableNetworks, selectedOperator, currentNetworkStatus, currenStateGprsService, connected;
+                    var availableNetworks, selectedOperator, currentNetworkStatus, currenStateGprsService, test, connected;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, this.getAvailableNetworks()];
@@ -157,13 +157,10 @@ var Waveshare = /** @class */ (function () {
                             case 5:
                                 currenStateGprsService = _a.sent();
                                 console.log("currenStateGprsService", currenStateGprsService);
-                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
-                                // saunalahti should be internet for prepaid.  Some say internet.internet
-                                return [4 /*yield*/, this.port.write("AT+CGDCONT=" + availableNetworks[0] + ",\"IP\",\"internet\" ")];
+                                return [4 /*yield*/, this.port.write("AT+CGDCONT=" + availableNetworks[0] + ",\"IP\",\"internet\"", 15000)];
                             case 6:
-                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
-                                // saunalahti should be internet for prepaid.  Some say internet.internet
-                                _a.sent();
+                                test = _a.sent();
+                                console.log("test", test);
                                 return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 1000 * 30)];
                             case 7:
                                 connected = _a.sent();

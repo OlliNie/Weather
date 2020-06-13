@@ -116,9 +116,12 @@ export class Waveshare {
           console.log("currenStateGprsService", currenStateGprsService);
           // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
           // saunalahti should be internet for prepaid.  Some say internet.internet
-          await this.port.write(
-            `AT+CGDCONT=${availableNetworks[0]},"IP","internet" `
+          const test = await this.port.write(
+            `AT+CGDCONT=${availableNetworks[0]},"IP","internet"`,
+            15000
           );
+
+          console.log("test", test);
 
           const connected = await this.port.write("AT+CGACT=1 ", 1000 * 30);
 
