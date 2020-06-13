@@ -27,7 +27,7 @@ var Port = /** @class */ (function () {
                 });
                 setTimeout(function () {
                     handle.removeListener;
-                    rej(new Error("Command Timed Out"));
+                    rej(new Error("Command a " + dataToWrite + " Timed Out"));
                 }, timeout);
                 _this.port.write(dataToWrite + "\n");
             });
@@ -49,7 +49,7 @@ var Port = /** @class */ (function () {
                 });
                 setTimeout(function () {
                     handle.removeListener;
-                    rej(new Error("Command " + dataToSend + " Timed Out"));
+                    rej(new Error("Command a " + dataToSend + " Timed Out"));
                 }, 5000);
                 _this.port.write(dataToSend + "\u001A");
             });

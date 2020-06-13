@@ -29,7 +29,7 @@ export class Port {
 
       setTimeout(() => {
         handle.removeListener;
-        rej(new Error("Command Timed Out"));
+        rej(new Error(`Command a ${dataToWrite} Timed Out`));
       }, timeout);
 
       this.port.write(`${dataToWrite}\n`);
@@ -54,7 +54,7 @@ export class Port {
 
       setTimeout(() => {
         handle.removeListener;
-        rej(new Error(`Command ${dataToSend} Timed Out`));
+        rej(new Error(`Command a ${dataToSend} Timed Out`));
       }, 5000);
 
       this.port.write(`${dataToSend}\x1A`);
