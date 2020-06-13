@@ -93,6 +93,53 @@ var Waveshare = /** @class */ (function () {
                 });
             });
         };
+        this.powerOn = function () {
+            return new Promise(function (res, rej) {
+                _this.port
+                    .write("AT")
+                    .then(function (_a) {
+                    var response = _a.response;
+                    if (response) {
+                        res(true);
+                    }
+                })
+                    .catch(function () {
+                    //  If no response, power on and check for response
+                    console.log("turn on power");
+                    _this.togglePower()
+                        .then(function () { return _this.port.write("AT"); })
+                        .then(function (_a) {
+                        var response = _a.response;
+                        if (response) {
+                            res(true);
+                        }
+                    })
+                        .catch(rej);
+                });
+            });
+        };
+        this.internetOn = function () {
+            new Promise(function (res, rej) {
+                _this.port
+                    .write("AT+CSQ")
+                    .then(function (signalQuality) {
+                    console.log("signalQuality:", signalQuality);
+                })
+                    .then(function () { return _this.port.write("AT+CREG=1"); })
+                    .then(function (networkReqistered) {
+                    return console.log("networkRegisterd:", networkReqistered);
+                })
+                    .then(function () { return _this.port.write("AT+CREG?"); })
+                    .then(function (stateOfRegistration) {
+                    return console.log("stateOfRegistration:", stateOfRegistration);
+                })
+                    .then(function () { return _this.port.write("AT+COPS=?"); })
+                    .then(function (availableNetowrks) {
+                    return console.log("availableNetworks:", availableNetowrks);
+                })
+                    .then(function () { return res(true); });
+            });
+        };
         // gpio.destroy();
         this.port = new serialPort_1.Port(port);
     }

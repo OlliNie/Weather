@@ -48,28 +48,7 @@ if (phoneNumber) {
     };
     (function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            waveShare_1
-                .write("AT")
-                .then(function (res) {
-                if (res) {
-                    // resolve power on
-                }
-            })
-                .catch(function (e) {
-                //  If no response, power on and check for response
-                console.log("e", e);
-                waveShare_1
-                    .togglePower()
-                    .then(function () { return waveShare_1.write("AT"); })
-                    .then(function (res) {
-                    // resolve power on
-                    console.log("power on");
-                })
-                    .catch(function () {
-                    // toggling didnt turn power on
-                    console.log("toggle didnt help");
-                });
-            });
+            waveShare_1.internetOn();
             return [2 /*return*/];
         });
     }); })();

@@ -14,29 +14,31 @@ if (phoneNumber) {
   };
 
   (async () => {
-    waveShare
-      .write("AT")
-      .then((res) => {
-        if (res) {
-          // resolve power on
-        }
-      })
-      .catch((e) => {
-        //  If no response, power on and check for response
-        console.log("e", e);
+    waveShare.internetOn();
 
-        waveShare
-          .togglePower()
-          .then(() => waveShare.write("AT"))
-          .then((res) => {
-            // resolve power on
-            console.log("power on");
-          })
-          .catch(() => {
-            // toggling didnt turn power on
-            console.log("toggle didnt help");
-          });
-      });
+    // waveShare
+    //   .write("AT")
+    //   .then((res) => {
+    //     if (res) {
+    //       // resolve power on
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     //  If no response, power on and check for response
+    //     console.log("e", e);
+
+    //     waveShare
+    //       .togglePower()
+    //       .then(() => waveShare.write("AT"))
+    //       .then((res) => {
+    //         // resolve power on
+    //         console.log("power on");
+    //       })
+    //       .catch(() => {
+    //         // toggling didnt turn power on
+    //         console.log("toggle didnt help");
+    //       });
+    //   });
 
     // waveShare.togglePower();
 

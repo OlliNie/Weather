@@ -58,6 +58,52 @@ export class Waveshare {
         });
       });
   };
+
+  powerOn = () =>
+    new Promise((res, rej) => {
+      this.port
+        .write("AT")
+        .then(({ response }) => {
+          if (response) {
+            res(true);
+          }
+        })
+        .catch(() => {
+          //  If no response, power on and check for response
+          console.log("turn on power");
+          this.togglePower()
+            .then(() => this.port.write("AT"))
+            .then(({ response }) => {
+              if (response) {
+                res(true);
+              }
+            })
+            .catch(rej);
+        });
+    });
+
+  internetOn = () => {
+    new Promise((res, rej) => {
+      this.port
+        .write("AT+CSQ")
+        .then((signalQuality) => {
+          console.log("signalQuality:", signalQuality);
+        })
+        .then(() => this.port.write("AT+CREG=1"))
+        .then((networkReqistered) =>
+          console.log("networkRegisterd:", networkReqistered)
+        )
+        .then(() => this.port.write("AT+CREG?"))
+        .then((stateOfRegistration) =>
+          console.log("stateOfRegistration:", stateOfRegistration)
+        )
+        .then(() => this.port.write("AT+COPS=?"))
+        .then((availableNetowrks) =>
+          console.log("availableNetworks:", availableNetowrks)
+        )
+        .then(() => res(true));
+    });
+  };
 }
 
 export interface Props {
