@@ -144,7 +144,7 @@ var Waveshare = /** @class */ (function () {
                             case 2:
                                 selectedOperator = _a.sent();
                                 console.log("selectedOperator:", selectedOperator);
-                                return [4 /*yield*/, this.port.write("AT+COPS?=")];
+                                return [4 /*yield*/, this.port.write("AT+COPS?")];
                             case 3:
                                 currentNetworkStatus = _a.sent();
                                 console.log("currentNetworkStatus:", currentNetworkStatus);
@@ -165,7 +165,7 @@ var Waveshare = /** @class */ (function () {
                             case 7:
                                 connected = _a.sent();
                                 console.log("connected", connected);
-                                return [4 /*yield*/, this.port.write("AT+CGDCONT?=", 3000)];
+                                return [4 /*yield*/, this.port.write("AT+CGDCONT=?", 15000)];
                             case 8:
                                 check = _a.sent();
                                 console.log("connection status", check);

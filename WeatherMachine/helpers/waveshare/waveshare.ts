@@ -107,7 +107,7 @@ export class Waveshare {
           );
           console.log("selectedOperator:", selectedOperator);
           // check current network
-          const currentNetworkStatus = await this.port.write("AT+COPS?=");
+          const currentNetworkStatus = await this.port.write("AT+COPS?");
           console.log("currentNetworkStatus:", currentNetworkStatus);
           // AT+CGATT=1    [ to attach the terminal to GPRS service ]
           await this.port.write("AT+CGATT=1", 15000);
@@ -126,7 +126,7 @@ export class Waveshare {
           const connected = await this.port.write("AT+CGACT=1", 30000);
 
           console.log("connected", connected);
-          const check = await this.port.write("AT+CGDCONT?=", 3000);
+          const check = await this.port.write("AT+CGDCONT=?", 15000);
           console.log("connection status", check);
         })
         .then(() => res(true));
