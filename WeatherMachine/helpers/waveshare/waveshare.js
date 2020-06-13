@@ -149,7 +149,7 @@ var Waveshare = /** @class */ (function () {
                                 currentNetworkStatus = _a.sent();
                                 console.log("currentNetworkStatus:", currentNetworkStatus);
                                 // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-                                return [4 /*yield*/, this.port.write("AT+CGATT=1", nb)];
+                                return [4 /*yield*/, this.port.write("AT+CGATT=1")];
                             case 4:
                                 // AT+CGATT=1    [ to attach the terminal to GPRS service ]
                                 _a.sent();
