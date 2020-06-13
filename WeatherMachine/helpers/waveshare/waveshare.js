@@ -134,51 +134,41 @@ var Waveshare = /** @class */ (function () {
                     return console.log("stateOfRegistration:", stateOfRegistration);
                 })
                     .then(function () { return __awaiter(_this, void 0, void 0, function () {
-                    var availableNetworks;
-                    var _this = this;
+                    var availableNetworks, currentNetworkStatus, currenStateGprsService, connected;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, this.getAvailableNetworks()];
                             case 1:
                                 availableNetworks = _a.sent();
-                                availableNetworks.map(function (network) { return __awaiter(_this, void 0, void 0, function () {
-                                    var currentNetworkStatus, currenStateGprsService, connected;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: 
-                                            //  manually select available operator
-                                            return [4 /*yield*/, this.port.write("AT+COPS=" + network)];
-                                            case 1:
-                                                //  manually select available operator
-                                                _a.sent();
-                                                return [4 /*yield*/, this.port.write("AT+COPS?")];
-                                            case 2:
-                                                currentNetworkStatus = _a.sent();
-                                                console.log("currentNetworkStatus:", currentNetworkStatus);
-                                                // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-                                                return [4 /*yield*/, this.port.write("AT+CGATT=1")];
-                                            case 3:
-                                                // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-                                                _a.sent();
-                                                return [4 /*yield*/, this.port.write("AT+CGATT?")];
-                                            case 4:
-                                                currenStateGprsService = _a.sent();
-                                                console.log("currenStateGprsService", currenStateGprsService);
-                                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
-                                                // saunalahti should be internet for prepaid.  Some say internet.internet
-                                                return [4 /*yield*/, this.port.write("AT+CGDCONT=" + network + ",\"IP\",\"internet\" ")];
-                                            case 5:
-                                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
-                                                // saunalahti should be internet for prepaid.  Some say internet.internet
-                                                _a.sent();
-                                                return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 1000 * 30)];
-                                            case 6:
-                                                connected = _a.sent();
-                                                console.log("connected", connected);
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                }); });
+                                //  manually select available operator
+                                return [4 /*yield*/, this.port.write("AT+COPS=" + availableNetworks[0])];
+                            case 2:
+                                //  manually select available operator
+                                _a.sent();
+                                return [4 /*yield*/, this.port.write("AT+COPS?")];
+                            case 3:
+                                currentNetworkStatus = _a.sent();
+                                console.log("currentNetworkStatus:", currentNetworkStatus);
+                                // AT+CGATT=1    [ to attach the terminal to GPRS service ]
+                                return [4 /*yield*/, this.port.write("AT+CGATT=1")];
+                            case 4:
+                                // AT+CGATT=1    [ to attach the terminal to GPRS service ]
+                                _a.sent();
+                                return [4 /*yield*/, this.port.write("AT+CGATT?")];
+                            case 5:
+                                currenStateGprsService = _a.sent();
+                                console.log("currenStateGprsService", currenStateGprsService);
+                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
+                                // saunalahti should be internet for prepaid.  Some say internet.internet
+                                return [4 /*yield*/, this.port.write("AT+CGDCONT=" + availableNetworks[0] + ",\"IP\",\"internet\" ")];
+                            case 6:
+                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
+                                // saunalahti should be internet for prepaid.  Some say internet.internet
+                                _a.sent();
+                                return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 1000 * 30)];
+                            case 7:
+                                connected = _a.sent();
+                                console.log("connected", connected);
                                 return [2 /*return*/];
                         }
                     });

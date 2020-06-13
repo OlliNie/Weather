@@ -100,25 +100,26 @@ export class Waveshare {
         )
         .then(async () => {
           const availableNetworks = await this.getAvailableNetworks();
-          availableNetworks.map(async (network) => {
-            //  manually select available operator
-            await this.port.write(`AT+COPS=${network}`);
-            // check current network
-            const currentNetworkStatus = await this.port.write("AT+COPS?");
-            console.log("currentNetworkStatus:", currentNetworkStatus);
-            // AT+CGATT=1    [ to attach the terminal to GPRS service ]
-            await this.port.write("AT+CGATT=1");
-            // AT+CGATT?    [ To return the current state of GPRS service : Attach/Detach ]
-            const currenStateGprsService = await this.port.write("AT+CGATT?");
-            console.log("currenStateGprsService", currenStateGprsService);
-            // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
-            // saunalahti should be internet for prepaid.  Some say internet.internet
-            await this.port.write(`AT+CGDCONT=${network},"IP","internet" `);
 
-            const connected = await this.port.write("AT+CGACT=1 ", 1000 * 30);
+          //  manually select available operator
+          await this.port.write(`AT+COPS=${availableNetworks[0]}`);
+          // check current network
+          const currentNetworkStatus = await this.port.write("AT+COPS?");
+          console.log("currentNetworkStatus:", currentNetworkStatus);
+          // AT+CGATT=1    [ to attach the terminal to GPRS service ]
+          await this.port.write("AT+CGATT=1");
+          // AT+CGATT?    [ To return the current state of GPRS service : Attach/Detach ]
+          const currenStateGprsService = await this.port.write("AT+CGATT?");
+          console.log("currenStateGprsService", currenStateGprsService);
+          // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
+          // saunalahti should be internet for prepaid.  Some say internet.internet
+          await this.port.write(
+            `AT+CGDCONT=${availableNetworks[0]},"IP","internet" `
+          );
 
-            console.log("connected", connected);
-          });
+          const connected = await this.port.write("AT+CGACT=1 ", 1000 * 30);
+
+          console.log("connected", connected);
         })
         .then(() => res(true));
     });
