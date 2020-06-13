@@ -48,8 +48,13 @@ if (phoneNumber) {
     };
     (function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            waveShare_1.internetOn();
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, waveShare_1.powerOn()];
+                case 1:
+                    _a.sent();
+                    waveShare_1.internetOn();
+                    return [2 /*return*/];
+            }
         });
     }); })();
 }

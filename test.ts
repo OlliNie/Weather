@@ -14,6 +14,7 @@ if (phoneNumber) {
   };
 
   (async () => {
+    await waveShare.powerOn();
     waveShare.internetOn();
 
     // waveShare
