@@ -126,6 +126,8 @@ export class Waveshare {
           const connected = await this.port.write("AT+CGACT=1", 30000);
 
           console.log("connected", connected);
+          const check = await this.port.write("AT+CGDCONT?", 3000);
+          console.log("connection status", check);
         })
         .then(() => res(true));
     });

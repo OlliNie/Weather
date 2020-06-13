@@ -134,7 +134,7 @@ var Waveshare = /** @class */ (function () {
                     return console.log("stateOfRegistration:", stateOfRegistration);
                 })
                     .then(function () { return __awaiter(_this, void 0, void 0, function () {
-                    var availableNetworks, selectedOperator, currentNetworkStatus, currenStateGprsService, test, connected;
+                    var availableNetworks, selectedOperator, currentNetworkStatus, currenStateGprsService, test, connected, check;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, this.getAvailableNetworks()];
@@ -165,6 +165,10 @@ var Waveshare = /** @class */ (function () {
                             case 7:
                                 connected = _a.sent();
                                 console.log("connected", connected);
+                                return [4 /*yield*/, this.port.write("AT+CGDCONT?", 3000)];
+                            case 8:
+                                check = _a.sent();
+                                console.log("connection status", check);
                                 return [2 /*return*/];
                         }
                     });
