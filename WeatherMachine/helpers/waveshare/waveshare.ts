@@ -104,7 +104,7 @@ export class Waveshare {
             //  manually select available operator
             await this.port.write(`AT+COPS=${network}`);
             // check current network
-            const currentNetworkStatus = this.port.write("AT+COPS?");
+            const currentNetworkStatus = await this.port.write("AT+COPS?");
             console.log("currentNetworkStatus:", currentNetworkStatus);
             // AT+CGATT=1    [ to attach the terminal to GPRS service ]
             await this.port.write("AT+CGATT=1");
@@ -113,7 +113,7 @@ export class Waveshare {
             console.log("currenStateGprsService", currenStateGprsService);
             // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
             // saunalahti should be internet for prepaid.  Some say internet.internet
-            this.port.write(`AT+CGDCONT=${network},"IP","internet" `);
+            await this.port.write(`AT+CGDCONT=${network},"IP","internet" `);
 
             const connected = await this.port.write("AT+CGACT=1 ", 1000 * 30);
 

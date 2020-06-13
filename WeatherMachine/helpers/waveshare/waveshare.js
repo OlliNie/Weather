@@ -151,22 +151,28 @@ var Waveshare = /** @class */ (function () {
                                             case 1:
                                                 //  manually select available operator
                                                 _a.sent();
-                                                currentNetworkStatus = this.port.write("AT+COPS?");
+                                                return [4 /*yield*/, this.port.write("AT+COPS?")];
+                                            case 2:
+                                                currentNetworkStatus = _a.sent();
                                                 console.log("currentNetworkStatus:", currentNetworkStatus);
                                                 // AT+CGATT=1    [ to attach the terminal to GPRS service ]
                                                 return [4 /*yield*/, this.port.write("AT+CGATT=1")];
-                                            case 2:
+                                            case 3:
                                                 // AT+CGATT=1    [ to attach the terminal to GPRS service ]
                                                 _a.sent();
                                                 return [4 /*yield*/, this.port.write("AT+CGATT?")];
-                                            case 3:
+                                            case 4:
                                                 currenStateGprsService = _a.sent();
                                                 console.log("currenStateGprsService", currenStateGprsService);
                                                 // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
                                                 // saunalahti should be internet for prepaid.  Some say internet.internet
-                                                this.port.write("AT+CGDCONT=" + network + ",\"IP\",\"internet\" ");
+                                                return [4 /*yield*/, this.port.write("AT+CGDCONT=" + network + ",\"IP\",\"internet\" ")];
+                                            case 5:
+                                                // AT+CGDCONT=1,"IP","em"    [ To define PDP Context ]
+                                                // saunalahti should be internet for prepaid.  Some say internet.internet
+                                                _a.sent();
                                                 return [4 /*yield*/, this.port.write("AT+CGACT=1 ", 1000 * 30)];
-                                            case 4:
+                                            case 6:
                                                 connected = _a.sent();
                                                 console.log("connected", connected);
                                                 return [2 /*return*/];
